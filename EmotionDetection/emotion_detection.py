@@ -6,6 +6,15 @@ def emotion_detector(text_to_analyze):
     input_obj = { "raw_document": { "text": text_to_analyze } }
     res = requests.post(url=url,headers=headers,json=input_obj)
 
+    if res.status_code==400:
+        return{
+            'anger': None,
+            'disgust': None,
+            'fear': None,
+            'joy': None,
+            'sadness': None,
+            'dominant_emotion': None
+        }
     formatted_response=res.json()
 
     emotion=formatted_response['emotionPredictions'][0]['emotion']
